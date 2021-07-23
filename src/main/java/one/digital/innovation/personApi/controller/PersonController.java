@@ -22,20 +22,25 @@ public class PersonController { //local de entrada para as coisas
         this.personService = personService;
     }
 
-    @PostMapping
+    @PostMapping //criação de objetos
     @ResponseStatus(HttpStatus.CREATED)
     public MessageResponseDTO createPerson(@RequestBody @Valid PersonDTO personDTO){ //parametro Person
     return personService.createPerson(personDTO);
     }
 
-    @GetMapping
+    @GetMapping //lista todos
     public List<PersonDTO> listAll(){
         return personService.listAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}") //lista por id
     public PersonDTO findById(@PathVariable Long id) throws PersonNotFoundException {
         return personService.findById(id);
+    }
+
+    @PutMapping("{/id}") //atualiza o objeto
+    public MessageResponseDTO updateById(@PathVariable Long id, @RequestBody @Valid PersonDTO personDTO) throws PersonNotFoundException {
+        return personService.updateById(id, personDTO);
     }
 
     @DeleteMapping("/{id}")
